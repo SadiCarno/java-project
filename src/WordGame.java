@@ -13,31 +13,30 @@ public class WordGame extends JFrame {
 
 	private JTextField usersWord;
 	private JLabel lblOutput;
-	private JLabel lblLetterPlaces;
-
+	private static JLabel lblLetterPlaces;
+	private char letter;
+	
+	public char newGame() {
+		Random var = new Random();
+		letter = (char) (65 + var.nextInt(26));  //65 is 'A' in char;
+		lblLetterPlaces.setText("Your letter is " + letter);
+		return letter;
+	}
+	
 	public void checkResult() {
 		String stdIn = usersWord.getText();
-		String message = "";
-		lblLetterPlaces.setText("");
-		try { //needs to be refined
-			if (stdIn == null)
-			message = "";
-			else
-			message = "Nicely done! Let's play again!";
-			newGame();
-		}
-		catch (Exception e) {
-			message = "Enter a word with your letter.";
+		String message = "Enter a word with your letter.";
+		char enterWord[] = stdIn.toCharArray();
+		lblLetterPlaces.setText("Your letter is " + letter);
+		try {
+			if (enterWord[0] == letter)
+				message = "Nicely done! Let's play again!";
+		} catch (Exception wrongWord) {
+			message = "Error. Wrong input. Try again.";
 		} finally {
 			lblOutput.setText(message);
 			usersWord.selectAll();
 		}
-	}
-
-	public void newGame() {//generate number
-		Random var = new Random();
-		char letter = (char) (65 + var.nextInt(26));//65 is 'A' in char;
-		lblLetterPlaces.setText("Your letter is " + letter);
 	}
 
 	public static void main(String[] args) {
@@ -45,10 +44,8 @@ public class WordGame extends JFrame {
 		currentGame.newGame();
 		currentGame.setSize(new Dimension(500,350));
 		currentGame.setVisible(true);
-
-
-
 	}
+	
 	public WordGame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Word Game");
@@ -81,16 +78,22 @@ public class WordGame extends JFrame {
 		getContentPane().add(usersWord);
 		usersWord.setColumns(10);
 
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent word) {
+		JButton btnCheck = new JButton("Check result");
+		btnCheck.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent checkWord) {
 				checkResult();
 			}
-			
 		});
-		btnNewGame.setBounds(192, 166, 117, 25);
+		btnCheck.setBounds(289, 163, 143, 25);
+		getContentPane().add(btnCheck);
+		
+		JButton btnNewGame = new JButton("New game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent startNewGame) {
+				newGame();
+			}
+		});
+		btnNewGame.setBounds(81, 163, 130, 25);
 		getContentPane().add(btnNewGame);
 	}
-
-
 }
