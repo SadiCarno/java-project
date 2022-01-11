@@ -82,6 +82,11 @@ public class WordGame extends JFrame {
 		getContentPane().add(lblOutput);
 
 		usersWord = new JTextField();
+		usersWord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent enterWord) {
+				checkResult();
+			}
+		});
 		usersWord.setHorizontalAlignment(SwingConstants.LEFT);
 		usersWord.setBounds(289, 108, 157, 23);
 		getContentPane().add(usersWord);
@@ -93,6 +98,7 @@ public class WordGame extends JFrame {
 				checkResult();
 			}
 		});
+
 		btnCheck.setBounds(289, 163, 143, 25);
 		getContentPane().add(btnCheck);
 		
