@@ -18,24 +18,33 @@ public class WordGame extends JFrame {
 	
 	public char newGame() {
 		Random var = new Random();
-		letter = (char) (65 + var.nextInt(26));  //65 is 'A' in char;
+		letter = (char) (65 + var.nextInt(26));  //65 is 'A' in char
 		lblLetterPlaces.setText("Your letter is " + letter);
 		return letter;
 	}
 	
 	public void checkResult() {
 		String stdIn = usersWord.getText();
-		String message = "Enter a word with your letter.";
-		char enterWord[] = stdIn.toCharArray();
+		String message = "";
+		char[] enterWord= stdIn.toCharArray();  //convert users word to check out
 		lblLetterPlaces.setText("Your letter is " + letter);
-		try {
-			if (enterWord[0] == letter)
-				message = "Nicely done! Let's play again!";
+		try {	
+			for(int i = 0; i < enterWord.length; ++i) {
+				Boolean numberFlag = Character.isDigit(enterWord[i]);
+				if (numberFlag) {
+					message = "Error. Wrong input. Try again.";
+				} else if (enterWord[0] != letter) {
+					message = "Error. Wrong input. Try again.";
+				} else {
+					message = "Nicely done! Let's play again!";
+				}
+			}
 		} catch (Exception wrongWord) {
 			message = "Error. Wrong input. Try again.";
 		} finally {
 			lblOutput.setText(message);
 			usersWord.selectAll();
+			newGame();
 		}
 	}
 
