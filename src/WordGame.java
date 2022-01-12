@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 
 public class WordGame extends JFrame {
 
+	private JButton btnNewGame;
+	private JButton btnCheck;
 	private JTextField usersWord;
 	private JLabel lblOutput;
 	private static JLabel lblLetterPlaces;
@@ -37,6 +39,7 @@ public class WordGame extends JFrame {
 					message = "Error. Wrong input. Try again.";
 				} else {
 					message = "Nicely done! Let's play again!";
+					btnNewGame.setVisible(true);
 				}
 			}
 		} catch (Exception wrongWord) {
@@ -92,7 +95,7 @@ public class WordGame extends JFrame {
 		getContentPane().add(usersWord);
 		usersWord.setColumns(10);
 
-		JButton btnCheck = new JButton("Check result");
+		btnCheck = new JButton("Check result");
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent checkWord) {
 				checkResult();
@@ -102,7 +105,8 @@ public class WordGame extends JFrame {
 		btnCheck.setBounds(289, 163, 143, 25);
 		getContentPane().add(btnCheck);
 		
-		JButton btnNewGame = new JButton("New game");
+		btnNewGame = new JButton("New game");
+		btnNewGame.setVisible(false);
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent startNewGame) {
 				newGame();
